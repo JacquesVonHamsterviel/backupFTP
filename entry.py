@@ -21,7 +21,7 @@ def read_config():
             print("No argument and default config file. Program exit.")
             sys.exit()
     else:
-        if os.path.exists(sys.argv[1])==True：
+        if os.path.exists(sys.argv[1])==True:
             a_config = configparser.ConfigParser()
             a_config.read(sys.argv[1])
             return a_config
@@ -68,11 +68,12 @@ class BackupFTP:
 
     def download_file(self, local_file, a_remote_file):
         print('download file %s' % local_file)
+        print('s')
         file_handler = open(local_file, 'wb')
         self.ftp.retrbinary('RETR %s' % a_remote_file, file_handler.write)
         file_handler.close()
 
-    def download_dir(self, a_local_dir='./', a_remote_dir='./'):
+    def download_dir(self, a_local_dir='./', a_remote_dir='./'):                            
         """
         下载文件夹，
         :param a_local_dir:
@@ -96,6 +97,8 @@ class BackupFTP:
                 self.download_dir(local, file_name)
             elif file_type == '-':
                 self.download_file(local, file_name)
+    
+
         self.ftp.cwd('..')
 
     def get_file_list(self, line):
@@ -154,10 +157,13 @@ if __name__ == '__main__':
             local_dir = '.' + os.sep + 'back/'
         print(local_dir)
         remote_dir = config['ftp']['remote_dir']
+        aFtp.download_dir(local_dir, remote_dir)
+        '''
         try:
             aFtp.download_dir(local_dir, remote_dir)
         except Exception as ex:
             print(ex)
+        '''
         time_now = time.localtime()
         date_now = time.strftime('%Y-%m-%d', time_now)
         print(" - %s successfully backed up\n" % date_now)
