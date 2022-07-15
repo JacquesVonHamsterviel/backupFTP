@@ -11,9 +11,23 @@ from ftplib import FTP
 def read_config():
     """读取配置文件
     """
-    a_config = configparser.ConfigParser()
-    a_config.read('config.ini')
-    return a_config
+    if len(sys.argv)<=1:
+        if os.path.exists('config.ini')==True:
+            print("No argument found, read default config file.")
+            a_config = configparser.ConfigParser()
+            a_config.read('config.ini')
+            return a_config
+        else:
+            print("No argument and default config file. Program exit.")
+            sys.exit()
+    else:
+        if os.path.exists(sys.argv[1])==True：
+            a_config = configparser.ConfigParser()
+            a_config.read(sys.argv[1])
+            return a_config
+        else:
+            print("Config file does not exist. Program exit.")
+            sys.exit()
 
 
 def confirm_configuration_completed(a_config):
@@ -140,7 +154,10 @@ if __name__ == '__main__':
             local_dir = '.' + os.sep + 'back/'
         print(local_dir)
         remote_dir = config['ftp']['remote_dir']
-        aFtp.download_dir(local_dir, remote_dir)
+        try:
+            aFtp.download_dir(local_dir, remote_dir)
+        except Exception as ex:
+            print(ex)
         time_now = time.localtime()
         date_now = time.strftime('%Y-%m-%d', time_now)
         print(" - %s successfully backed up\n" % date_now)
