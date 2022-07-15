@@ -21,7 +21,9 @@ local_dir =
 ```
 #运行
 ```bash
-python3 entry.py
+python3 entry.py //这时会读默认的配置文件（config.ini）
+or
+python3 entry.py config-1.ini
 ```
 则自动将远程的目录下载到当前文件夹下
 #TODO List
