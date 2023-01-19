@@ -1,4 +1,12 @@
 # backupFTP
+
+这里是我的修改版本，NoConfigFile.py文件可以单独使用，可以根据当前日期备份文件。
+具体内容看源码最后几行就行。
+
+---------------------
+
+
+下面是原作者的README，
 FTP的备份工具，python3写的。由于多备份停止了免费额度，只好自己写个工具来进行备份。在[linux下配合corn服务](http://www.findspace.name/res/902)可进行定时备份。
 #使用环境
 支持python3的环境
